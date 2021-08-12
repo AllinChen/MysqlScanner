@@ -1,0 +1,8 @@
+db:
+  address: "127.0.0.1"
+  port: 3306
+  user: "mysql"
+  password: "mysql.1234"
+  db_name: "dbinjection"
+  max_idle_conn: 2
+  max_open_conn: 30
