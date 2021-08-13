@@ -2,6 +2,8 @@ package tablescanner
 
 import (
 	"fmt"
+
+	"github.com/AllinChen/MysqlScanner/config"
 )
 
 type tablestruct struct {
@@ -124,6 +126,14 @@ func transTables(tbfs []tablestruct) (tbs []Table) {
 		tb.CreateOptions = TransValue(tbf.CreateOptions)
 		tb.TableComment = TransValue(tbf.TableComment)
 		tbs = append(tbs, tb)
+	}
+
+	if *config.Ftb != "" {
+		for _, tb := range tbs {
+			if *config.Ftb == tb.TableName {
+				tbs = []Table{tb}
+			}
+		}
 	}
 	return
 }

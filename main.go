@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 
 	"github.com/AllinChen/MysqlScanner/config"
@@ -9,8 +10,17 @@ import (
 )
 
 func main() {
+	flag.Parse()
 	config.InitConfig("")
+	fmt.Printf("Address  : %s \n", config.Conf.DB.Address)
+	fmt.Printf("Port     : %d \n", config.Conf.DB.Port)
+	fmt.Printf("UserName : %s \n", config.Conf.DB.User)
+	fmt.Printf("Password : %s \n", config.Conf.DB.Password)
+	fmt.Printf("Database : %s \n", *config.Fdb)
+	fmt.Printf("Table    : %s \n", *config.Ftb)
+	fmt.Printf("scanning ...........\n")
 	StartScanner()
+	fmt.Printf("Success!")
 
 }
 
@@ -37,9 +47,17 @@ func StartScanner() bool {
 		return false
 	}
 	if err == nil {
-		path += config.Conf.DB.Address + ".md"
+		path += config.Conf.DB.Address
+		if *config.Fdb != "" {
+			path += " db-" + *config.Fdb
+		}
+		if *config.Ftb != "" {
+			path += " tb-" + *config.Ftb
+		}
+		path += ".md"
 	}
-	fmt.Println(markdown.SaveAsMdFile(path, content))
+
+	// fmt.Println(markdown.SaveAsMdFile(path, content))
 
 	return true
 }

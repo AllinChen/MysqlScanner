@@ -84,11 +84,11 @@ func GetFilePath() (string, error) {
 	if err == nil {
 		switch runtime.GOOS {
 		case "darwin":
-			return pwd + "/DBInfo/", nil
+			return pwd + "/", nil
 		case "windows":
-			return pwd + "\\DBInfo\\", nil
+			return pwd + "\\", nil
 		case "linux":
-			return pwd + "/DBInfo/", nil
+			return pwd + "/", nil
 		default:
 			return "", nil
 		}

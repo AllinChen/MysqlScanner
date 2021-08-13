@@ -1,5 +1,7 @@
 package tablescanner
 
+import "github.com/AllinChen/MysqlScanner/config"
+
 // MysqlDefaultDatabase mysql中的默认表
 var MysqlDefaultDatabase []string = []string{
 	"information_schema",
@@ -37,6 +39,14 @@ func GetDatabases(defaultDatabase []string) ([]Database, error) {
 			dbs = append(dbs, db)
 		}
 
+	}
+	if *config.Fdb != "" {
+		for _, db := range dbs {
+			if *config.Fdb == db.Database {
+				db.Database = *config.Fdb
+				dbs = []Database{db}
+			}
+		}
 	}
 	return dbs, nil
 

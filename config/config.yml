@@ -3,6 +3,6 @@ db:
   port: 3306
   user: "mysql"
   password: "mysql.1234"
-  db_name: "dbinjection"
+  db_name: ""
   max_idle_conn: 2
   max_open_conn: 30
