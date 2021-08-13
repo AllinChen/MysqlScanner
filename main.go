@@ -19,8 +19,11 @@ func main() {
 	fmt.Printf("Database : %s \n", *config.Fdb)
 	fmt.Printf("Table    : %s \n", *config.Ftb)
 	fmt.Printf("scanning ...........\n")
-	StartScanner()
-	fmt.Printf("Success!")
+	if StartScanner() {
+		fmt.Printf("Success! :)")
+	} else {
+		fmt.Println("failed :(")
+	}
 
 }
 
@@ -56,7 +59,7 @@ func StartScanner() bool {
 		}
 		path += ".md"
 	}
-
+	fmt.Println("NewFile : ", path)
 	markdown.SaveAsMdFile(path, content)
 
 	return true
