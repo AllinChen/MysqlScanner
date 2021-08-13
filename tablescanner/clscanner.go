@@ -2,8 +2,6 @@ package tablescanner
 
 import (
 	"fmt"
-
-	"github.com/AllinChen/MysqlScanner/tinyutils"
 )
 
 type columnstruct struct {
@@ -30,7 +28,7 @@ type columnstruct struct {
 	GenerationExpression   interface{} `bdb:"GENERATION_EXPRESSION"`
 }
 
-func GetColumns(dbName, tableName string) ([]column, error) {
+func GetColumns(dbName, tableName string) ([]Column, error) {
 	sql := fmt.Sprintf("select * from information_schema.columns where table_schema = '%s' and table_name = '%s'; ", dbName, tableName)
 	db, err := DBTool.GetDBConnt()
 	if err != nil {
@@ -74,7 +72,7 @@ func GetColumns(dbName, tableName string) ([]column, error) {
 	return transColumn(cols), nil
 }
 
-type column struct {
+type Column struct {
 	TableCatalog           string
 	TableSchema            string
 	TableName              string
@@ -98,31 +96,31 @@ type column struct {
 	GenerationExpression   string
 }
 
-func transColumn(colfs []columnstruct) (cols []column) {
+func transColumn(colfs []columnstruct) (cols []Column) {
 	for _, colf := range colfs {
-		var col column
+		var col Column
 
-		col.TableCatalog = tinyutils.TransValue(colf.TableCatalog)
-		col.TableSchema = tinyutils.TransValue(colf.TableSchema)
-		col.TableName = tinyutils.TransValue(colf.TableName)
-		col.ColumnName = tinyutils.TransValue(colf.ColumnName)
-		col.OrdinalPosition = tinyutils.TransValue(colf.OrdinalPosition)
-		col.ColumnDefault = tinyutils.TransValue(colf.ColumnDefault)
-		col.IsNullAble = tinyutils.TransValue(colf.IsNullAble)
-		col.DataType = tinyutils.TransValue(colf.DataType)
-		col.CharacterMaximumLength = tinyutils.TransValue(colf.CharacterMaximumLength)
-		col.CharacterOrtetLength = tinyutils.TransValue(colf.CharacterOrtetLength)
-		col.NumericPrecision = tinyutils.TransValue(colf.NumericPrecision)
-		col.NumericScale = tinyutils.TransValue(colf.NumericScale)
-		col.DataTimePrecision = tinyutils.TransValue(colf.DataTimePrecision)
-		col.CharacterSetName = tinyutils.TransValue(colf.CharacterSetName)
-		col.CollationName = tinyutils.TransValue(colf.CollationName)
-		col.ColumnType = tinyutils.TransValue(colf.ColumnType)
-		col.ColumnKey = tinyutils.TransValue(colf.ColumnKey)
-		col.Extra = tinyutils.TransValue(colf.Extra)
-		col.Privileges = tinyutils.TransValue(colf.Privileges)
-		col.ColumnComment = tinyutils.TransValue(colf.ColumnComment)
-		col.GenerationExpression = tinyutils.TransValue(colf.GenerationExpression)
+		col.TableCatalog = TransValue(colf.TableCatalog)
+		col.TableSchema = TransValue(colf.TableSchema)
+		col.TableName = TransValue(colf.TableName)
+		col.ColumnName = TransValue(colf.ColumnName)
+		col.OrdinalPosition = TransValue(colf.OrdinalPosition)
+		col.ColumnDefault = TransValue(colf.ColumnDefault)
+		col.IsNullAble = TransValue(colf.IsNullAble)
+		col.DataType = TransValue(colf.DataType)
+		col.CharacterMaximumLength = TransValue(colf.CharacterMaximumLength)
+		col.CharacterOrtetLength = TransValue(colf.CharacterOrtetLength)
+		col.NumericPrecision = TransValue(colf.NumericPrecision)
+		col.NumericScale = TransValue(colf.NumericScale)
+		col.DataTimePrecision = TransValue(colf.DataTimePrecision)
+		col.CharacterSetName = TransValue(colf.CharacterSetName)
+		col.CollationName = TransValue(colf.CollationName)
+		col.ColumnType = TransValue(colf.ColumnType)
+		col.ColumnKey = TransValue(colf.ColumnKey)
+		col.Extra = TransValue(colf.Extra)
+		col.Privileges = TransValue(colf.Privileges)
+		col.ColumnComment = TransValue(colf.ColumnComment)
+		col.GenerationExpression = TransValue(colf.GenerationExpression)
 		cols = append(cols, col)
 	}
 	return

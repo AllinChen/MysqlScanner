@@ -1,7 +1,5 @@
 package tablescanner
 
-import "fmt"
-
 // MysqlDefaultDatabase mysql中的默认表
 var MysqlDefaultDatabase []string = []string{
 	"information_schema",
@@ -11,13 +9,13 @@ var MysqlDefaultDatabase []string = []string{
 }
 
 // database
-type database struct {
+type Database struct {
 	Database string `bdb:"Database"`
 }
 
 // GetDatabases 得到数据库的列表
-func GetDatabases(defaultDatabase []string) ([]database, error) {
-	sql := fmt.Sprintf("show databases;")
+func GetDatabases(defaultDatabase []string) ([]Database, error) {
+	sql := "show databases;"
 
 	db, err := DBTool.GetDBConnt()
 	if err != nil {
@@ -28,9 +26,9 @@ func GetDatabases(defaultDatabase []string) ([]database, error) {
 		return nil, err
 	}
 	defer rows.Close()
-	var dbs []database
+	var dbs []Database
 	for rows.Next() {
-		var db database
+		var db Database
 		if err = rows.Scan(&db.Database); nil != err {
 			return nil, err
 		}

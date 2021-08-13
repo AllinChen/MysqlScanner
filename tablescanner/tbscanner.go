@@ -2,8 +2,6 @@ package tablescanner
 
 import (
 	"fmt"
-
-	"github.com/AllinChen/MysqlScanner/tinyutils"
 )
 
 type tablestruct struct {
@@ -30,7 +28,7 @@ type tablestruct struct {
 	TableComment   interface{} `bdb:"TABLE_COMMENT"`
 }
 
-func GetTables(dbName string) ([]table, error) {
+func GetTables(dbName string) ([]Table, error) {
 	sql := fmt.Sprintf("select * from information_schema.tables where table_schema = '%s'", dbName)
 
 	db, err := DBTool.GetDBConnt()
@@ -77,7 +75,7 @@ func GetTables(dbName string) ([]table, error) {
 	return transTables(tbs), nil
 }
 
-type table struct {
+type Table struct {
 	TableCatalog   string
 	TableSchema    string
 	TableName      string
@@ -101,30 +99,30 @@ type table struct {
 	TableComment   string
 }
 
-func transTables(tbfs []tablestruct) (tbs []table) {
+func transTables(tbfs []tablestruct) (tbs []Table) {
 	for _, tbf := range tbfs {
-		var tb table
-		tb.TableCatalog = tinyutils.TransValue(tbf.TableCatalog)
-		tb.TableSchema = tinyutils.TransValue(tbf.TableSchema)
-		tb.TableName = tinyutils.TransValue(tbf.TableName)
-		tb.TableType = tinyutils.TransValue(tbf.TableType)
-		tb.Engine = tinyutils.TransValue(tbf.Engine)
-		tb.Version = tinyutils.TransValue(tbf.Version)
-		tb.RowFormat = tinyutils.TransValue(tbf.RowFormat)
-		tb.TableRows = tinyutils.TransValue(tbf.TableRows)
-		tb.AvgRowLength = tinyutils.TransValue(tbf.AvgRowLength)
-		tb.DataLength = tinyutils.TransValue(tbf.DataLength)
-		tb.MaxDataLength = tinyutils.TransValue(tbf.MaxDataLength)
-		tb.IndexLength = tinyutils.TransValue(tbf.IndexLength)
-		tb.DataFree = tinyutils.TransValue(tbf.DataFree)
-		tb.AutoIncrement = tinyutils.TransValue(tbf.AutoIncrement)
-		tb.CreateTime = tinyutils.TransValue(tbf.CreateTime)
-		tb.UpdateTime = tinyutils.TransValue(tbf.UpdateTime)
-		tb.CheckTime = tinyutils.TransValue(tbf.CheckTime)
-		tb.TableCollation = tinyutils.TransValue(tbf.TableCollation)
-		tb.CheckSum = tinyutils.TransValue(tbf.CheckSum)
-		tb.CreateOptions = tinyutils.TransValue(tbf.CreateOptions)
-		tb.TableComment = tinyutils.TransValue(tbf.TableComment)
+		var tb Table
+		tb.TableCatalog = TransValue(tbf.TableCatalog)
+		tb.TableSchema = TransValue(tbf.TableSchema)
+		tb.TableName = TransValue(tbf.TableName)
+		tb.TableType = TransValue(tbf.TableType)
+		tb.Engine = TransValue(tbf.Engine)
+		tb.Version = TransValue(tbf.Version)
+		tb.RowFormat = TransValue(tbf.RowFormat)
+		tb.TableRows = TransValue(tbf.TableRows)
+		tb.AvgRowLength = TransValue(tbf.AvgRowLength)
+		tb.DataLength = TransValue(tbf.DataLength)
+		tb.MaxDataLength = TransValue(tbf.MaxDataLength)
+		tb.IndexLength = TransValue(tbf.IndexLength)
+		tb.DataFree = TransValue(tbf.DataFree)
+		tb.AutoIncrement = TransValue(tbf.AutoIncrement)
+		tb.CreateTime = TransValue(tbf.CreateTime)
+		tb.UpdateTime = TransValue(tbf.UpdateTime)
+		tb.CheckTime = TransValue(tbf.CheckTime)
+		tb.TableCollation = TransValue(tbf.TableCollation)
+		tb.CheckSum = TransValue(tbf.CheckSum)
+		tb.CreateOptions = TransValue(tbf.CreateOptions)
+		tb.TableComment = TransValue(tbf.TableComment)
 		tbs = append(tbs, tb)
 	}
 	return
