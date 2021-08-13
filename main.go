@@ -57,7 +57,7 @@ func StartScanner() bool {
 		path += ".md"
 	}
 
-	// fmt.Println(markdown.SaveAsMdFile(path, content))
+	markdown.SaveAsMdFile(path, content)
 
 	return true
 }
