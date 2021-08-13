@@ -41,7 +41,7 @@ func StartScanner() bool {
 		for _, tb := range tbs {
 			content = markdown.SmallTitle(content+"\n", tb.TableName)
 			cols, _ := tablescanner.GetColumns(dbName, tb.TableName)
-			content = markdown.TableColumn(content, dbName, cols)
+			content = markdown.TableColumn(content, tb.TableName, cols)
 		}
 
 	}

@@ -54,8 +54,8 @@ func DatabaseTable(content string, dbName string, tbs []tablescanner.Table) stri
 	return content + tbcontent + "\n\n"
 }
 
-func TableColumn(content string, dbName string, cols []tablescanner.Column) string {
-	colcontent := fmt.Sprintf(" 表 %s 中列信息", dbName) + "\n" +
+func TableColumn(content string, tbName string, cols []tablescanner.Column) string {
+	colcontent := fmt.Sprintf(" 表 %s 中列信息", tbName) + "\n" +
 		"| 序号 | 列名 | 表名 | 默认值 | 能否null | 数据类型 | 最大长度 | 列类型 | 其他 | 权限 | 备注 | \n" +
 		"| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n"
 

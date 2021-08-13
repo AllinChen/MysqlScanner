@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/romberli/log"
 	"gopkg.in/yaml.v3"
 )
 
@@ -40,10 +39,11 @@ func InitConfig(path string) {
 		path = configPath
 	}
 
-	conf, err := newConfig(path)
-	if err != nil {
-		log.Fatalf("init config failed: ", err)
-	}
+	// conf, err := newConfig(path)
+	conf := &Config{}
+	// if err != nil {
+	// 	log.Fatalf("init config failed: ", err)
+	// }
 	conf.DB.Address = *add
 	conf.DB.Port = *port
 	conf.DB.User = *user
