@@ -11,7 +11,7 @@ import (
 
 func BigTitle(content, databaseName string) string {
 
-	return content + "# DATABASE - " + databaseName + " \n"
+	return content + "\n# DATABASE - " + databaseName + " \n"
 }
 
 func SmallTitle(content, tableName string) string {
@@ -20,18 +20,16 @@ func SmallTitle(content, tableName string) string {
 
 func DatabaseTable(content string, dbName string, tbs []tablescanner.Table) string {
 	tbcontent := fmt.Sprintf("### 库 %s 中表信息", dbName) + "\n" +
-		"| 序号 | 名称 | 来源 | 类型 | 存储引擎 | 创建时间 | 修改时间 | 备注 | \n" +
-		"| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n"
+		"| 序号 | 名称 | 来源 | 类型 | 存储引擎 | 备注 | \n" +
+		"| :--: | :--: | :--: | :--: | :--: | :--: |\n"
 
 	for nub, tb := range tbs {
-		ct := fmt.Sprintf("| %d | %s | %s | %s | %s | %s | %s | %s |\n",
+		ct := fmt.Sprintf("| %d | %s | %s | %s | %s | %s |\n",
 			nub+1,
 			tb.TableName,
 			tb.TableSchema,
 			tb.TableType,
 			tb.Engine,
-			tb.CreateTime,
-			tb.UpdateTime,
 			tb.TableComment,
 		)
 		tbcontent += ct
@@ -56,21 +54,19 @@ func DatabaseTable(content string, dbName string, tbs []tablescanner.Table) stri
 
 func TableColumn(content string, tbName string, cols []tablescanner.Column) string {
 	colcontent := fmt.Sprintf(" 表 %s 中列信息", tbName) + "\n" +
-		"| 序号 | 列名 | 表名 | 默认值 | 能否null | 数据类型 | 最大长度 | 列类型 | 其他 | 权限 | 备注 | \n" +
-		"| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n"
+		"| 序号 | 名称 | 默认值 | 允许空值 | 数据类型 | 最大长度 | 小数位 | 其他 | 备注 | \n" +
+		"| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n"
 
 	for _, col := range cols {
-		ct := fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s |\n",
+		ct := fmt.Sprintf("| %s | %s | %s | %s | %s | %s | %s | %s | %s |\n",
 			col.OrdinalPosition,
 			col.ColumnName,
-			col.TableName,
 			col.ColumnDefault,
 			col.IsNullAble,
 			col.DataType,
 			col.CharacterMaximumLength,
-			col.ColumnType,
+			col.NumericPrecision,
 			col.Extra,
-			col.Privileges,
 			col.ColumnComment,
 		)
 		colcontent += ct
